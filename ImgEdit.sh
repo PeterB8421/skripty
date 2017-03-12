@@ -1,6 +1,19 @@
 #!/bin/bash
+function check {
+echo ""$path >> path
+a=`cat path | awk -F "." '{print $2}'`
+if [ $a == "jpg" ] || [ $a == "png" ] || [ $a == "JPG" ] || [ $a == "PNG" ]; then
+valid=1
+else
+valid=0
+echo "Wrong type of file!"
+fi
+rm path
+return $valid
+}
 choice=55
 until [ $choice == e ]; do
+	valid=2
 	echo "__________Welcome to image editor, choose what you want to do: __________"
 	echo "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 	echo "|									      |"
@@ -17,8 +30,11 @@ until [ $choice == e ]; do
 	clear
 	if [ $choice == 1 ]; then
 		echo "RESOLUTION"
+		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
 		read path
+		check
+		done
 		echo "Write new resolution: "
 		read resolution
 		convert $path -resize $resolution $path
@@ -34,8 +50,11 @@ until [ $choice == e ]; do
 		echo "-----------------------------------"
 		echo "Choose one: "
 		read choice
+		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
 		read path
+		check
+		done
 		if [ $choice == c ]; then
 			echo "Write number of strength of the charcoal effect: "
 			read strength
@@ -54,8 +73,11 @@ until [ $choice == e ]; do
 		echo "--------------"
 		echo "(b) Back"
 		read choice
+		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
 		read path
+		check
+		done
 		if [ $choice == 1 ]; then
 			echo "Enter quality of converted image: "
 			read quality
@@ -66,16 +88,22 @@ until [ $choice == e ]; do
 		echo "Image converted!"
 	elif [ $choice == 4 ]; then
 		echo "ROTATE"
+		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
 		read path
+		check
+		done
 		echo "Write number of degrees to rotate the image: "
 		read rotate
 		convert $path -rotate $rotate $path
 		echo "Image rotated!"
 	elif [ $choice == 5 ]; then
 		echo "QUALITY"
+		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
 		read path
+		check
+		done
 		echo "Write number for quality in the image: "
 		read quality
 		convert $path -quality $quality $path
