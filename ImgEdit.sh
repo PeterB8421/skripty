@@ -11,6 +11,33 @@ fi
 rm path
 return $valid
 }
+function ending {
+echo ""$path >> path
+npath=`cat path | awk -F "." '{print $1}'`
+rm path
+return $npath
+}
+function formatCheck {
+echo ""$path >> path
+a=`cat path | awk -F "." '{print $2}'`
+if [ $choice == 1 ]; then
+	if [ $a == "png" ] || [ $a == "PNG" ]; then
+	valid=1
+	else
+	valid=0
+	echo "Wrong type of file!"
+	fi
+elif [ $choice == 2 ]; then
+	if [ $a == "jpg" ] || [ $a == "JPG" ]; then
+        valid=1
+        else
+        valid=0
+	fi
+        echo "Wrong type of file!"
+fi
+rm path
+return $valid
+}
 choice=55
 until [ $choice == e ]; do
 	valid=2
@@ -76,14 +103,16 @@ until [ $choice == e ]; do
 		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
 		read path
-		check
+		formatCheck
 		done
+		ending
+		clear
 		if [ $choice == 1 ]; then
 			echo "Enter quality of converted image: "
 			read quality
-			convert $path -quality $quality $path.jpg
+			convert $path -quality $quality $npath.jpg
 		elif [ $choice == 2 ]; then
-			convert $path $path.png
+			convert $path $npath.png
 		fi
 		echo "Image converted!"
 	elif [ $choice == 4 ]; then
