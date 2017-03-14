@@ -1,25 +1,25 @@
-#!/bin/bash
+#!/bin/bash9
 function check {
-echo ""$path >> path
-a=`cat path | awk -F "." '{print $2}'`
+echo ""$path > path.tmp
+a=`cat path.tmp | awk -F "." '{print $2}'`
 if [ $a == "jpg" ] || [ $a == "png" ] || [ $a == "JPG" ] || [ $a == "PNG" ]; then
 valid=1
 else
 valid=0
 echo "Wrong type of file!"
 fi
-rm path
+rm path.tmp
 return $valid
 }
 function ending {
-echo ""$path >> path
-npath=`cat path | awk -F "." '{print $1}'`
-rm path
+echo ""$path > path.tmp
+npath=`cat path.tmp | awk -F "." '{print $1}'`
+rm path.tmp
 return $npath
 }
 function formatCheck {
-echo ""$path >> path
-a=`cat path | awk -F "." '{print $2}'`
+echo ""$path > path.tmp
+a=`cat path.tmp | awk -F "." '{print $2}'`
 if [ $choice == 1 ]; then
 	if [ $a == "png" ] || [ $a == "PNG" ]; then
 	valid=1
@@ -35,7 +35,7 @@ elif [ $choice == 2 ]; then
 	fi
         echo "Wrong type of file!"
 fi
-rm path
+rm path.tmp
 return $valid
 }
 choice=55
