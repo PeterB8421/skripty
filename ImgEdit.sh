@@ -1,25 +1,31 @@
-#!/bin/bash9
+#!/bin/bash
 function check {
-echo ""$path > path.tmp
-a=`cat path.tmp | awk -F "." '{print $2}'`
-if [ $a == "jpg" ] || [ $a == "png" ] || [ $a == "JPG" ] || [ $a == "PNG" ]; then
+echo $path
+a=`echo $path | awk -F "." '{print $2}' | awk -F " " '{print $1}'`
+if [[ $a == "jpg" ]] || [[ $a == "png" ]] || [[ $a == "JPG" ]] || [[ $a == "PNG" ]] || [[ $a == "*" ]]; then
 valid=1
 else
 valid=0
 echo "Wrong type of file!"
 fi
-rm path.tmp
 return $valid
 }
 function ending {
-echo ""$path > path.tmp
-npath=`cat path.tmp | awk -F "." '{print $1}'`
-rm path.tmp
-return $npath
+a=`echo $path | awk "." '{print $1}' | awk -F "/" '{print $2}'`
+if [[ $a == "*" ]]; then
+fpath=`echo $path | awk -F "/" '{pruint $1}'`
+cd $fpath
+end=`echo $path | awk -F "." '{print $2}' | awk -F " " '{print $1}'`
+file=`*.$end`
+convert $path $file
+else
+npath=`echo $path | awk -F "." '{print $1}'`
+convert $path $npath.$end
+fi
+return
 }
 function formatCheck {
-echo ""$path > path.tmp
-a=`cat path.tmp | awk -F "." '{print $2}'`
+a=`echo $path | awk -F "." '{print $2}' | awk -F " " '{print $1}'`
 if [ $choice == 1 ]; then
 	if [ $a == "png" ] || [ $a == "PNG" ]; then
 	valid=1
@@ -35,7 +41,6 @@ elif [ $choice == 2 ]; then
 	fi
         echo "Wrong type of file!"
 fi
-rm path.tmp
 return $valid
 }
 choice=55
@@ -73,8 +78,6 @@ until [ $choice == e ]; do
 		echo "|	(c) Charcoal			|"
 		echo "| (i) Implosion			|"
 		echo "|---------------------------------|"
-		echo "| (b) Back			|"
-		echo "-----------------------------------"
 		echo "Choose one: "
 		read choice
 		until [ $valid == 1 ]; do
@@ -98,7 +101,6 @@ until [ $choice == e ]; do
 		echo "(1) png -> jpg"
 		echo "(2) jpg -> png"
 		echo "--------------"
-		echo "(b) Back"
 		read choice
 		until [ $valid == 1 ]; do
 		echo "Write path to your image (if you want to change all images, write *.[format]): "
@@ -106,14 +108,6 @@ until [ $choice == e ]; do
 		formatCheck
 		done
 		ending
-		clear
-		if [ $choice == 1 ]; then
-			echo "Enter quality of converted image: "
-			read quality
-			convert $path -quality $quality $npath.jpg
-		elif [ $choice == 2 ]; then
-			convert $path $npath.png
-		fi
 		echo "Image converted!"
 	elif [ $choice == 4 ]; then
 		echo "ROTATE"
