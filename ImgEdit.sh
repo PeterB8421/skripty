@@ -1,6 +1,5 @@
 #!/bin/bash
 function check {
-echo $path
 a=`echo $path | awk -F "." '{print $2}' | awk -F " " '{print $1}'`
 if [[ $a == "jpg" ]] || [[ $a == "png" ]] || [[ $a == "JPG" ]] || [[ $a == "PNG" ]] || [[ $a == "*" ]]; then
 valid=1
@@ -10,39 +9,42 @@ echo "Wrong type of file!"
 fi
 return $valid
 }
+
 function ending {
-a=`echo $path | awk "." '{print $1}' | awk -F "/" '{print $2}'`
-if [[ $a == "*" ]]; then
-fpath=`echo $path | awk -F "/" '{pruint $1}'`
-cd $fpath
-end=`echo $path | awk -F "." '{print $2}' | awk -F " " '{print $1}'`
-file=`*.$end`
-convert $path $file
-else
+if [[ $choice == 1 ]]; then
+end="jpg"
+elif [[ $choice == 2 ]]; then
+end="png"
+fi
 npath=`echo $path | awk -F "." '{print $1}'`
-convert $path $npath.$end
+if [[ $choice == 1 ]]; then
+convert $path $npath.jpg
+elif [[ $choice == 2 ]]; then
+convert $path $npath.png
 fi
 return
 }
+
 function formatCheck {
 a=`echo $path | awk -F "." '{print $2}' | awk -F " " '{print $1}'`
 if [ $choice == 1 ]; then
-	if [ $a == "png" ] || [ $a == "PNG" ]; then
+	if [[ $a == "png" ]] || [[ $a == "PNG" ]]; then
 	valid=1
 	else
 	valid=0
 	echo "Wrong type of file!"
 	fi
 elif [ $choice == 2 ]; then
-	if [ $a == "jpg" ] || [ $a == "JPG" ]; then
+	if [[ $a == "jpg" ]] || [[ $a == "JPG" ]]; then
         valid=1
         else
         valid=0
-	fi
         echo "Wrong type of file!"
+	fi
 fi
 return $valid
 }
+
 choice=55
 until [ $choice == e ]; do
 	valid=2
