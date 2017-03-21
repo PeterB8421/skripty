@@ -47,6 +47,10 @@ return $valid
 
 choice=55
 until [ $choice == e ]; do
+	img=`ls -a | grep .check`
+	if [[ $img ]]; then
+	check=`cat .check`
+	if [[ $check == 1 ]]; then
 	valid=2
 	echo "__________Welcome to image editor, choose what you want to do: __________"
 	echo "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -133,5 +137,11 @@ until [ $choice == e ]; do
 		read quality
 		convert $path -quality $quality $path
 		echo "Quality changed!"
+	fi
+	else
+		echo "ImageMagick is not installed!"
+	fi
+	else
+	./ImageMagickCheck.sh
 	fi
 done
