@@ -13,22 +13,47 @@ wholeram=`free -m | grep Mem | awk -F " " '{print $2}'`
 usedram=`free -m | grep Mem | awk -F " " '{print $3}'`
 freeram=`free -m | grep Mem | awk -F " " '{print $4}'`
 
-echo "Aktuální čas: "$cas >> dohled
-echo "Moje IP: "$ip >> dohled
-echo "_____________________________________" >> dohled
-echo "Přijatá data: "$rx >> dohled
-echo "Odeslaná data: "$tx >> dohled
-echo "_____________________________________" >> dohled
-echo "Počet přihlášených uživatelů: "$users >> dohled
-echo "_____________________________________" >> dohled
-echo "Statistiky disku: " >> dohled
-echo "Celkové místo na disku: "$wholedisk >> dohled
-echo "Využité místo na disku: "$useddisk >> dohled
-echo "Volné místo na disku: "$freedisk >> dohled
-echo "Využité místo na disku v %: "$procentdisk >> dohled
-echo "_____________________________________" >> dohled
-echo "Statistiky paměti RAM: " >> dohled
-echo "Celková paměť RAM: "$wholeram" MB" >> dohled
-echo "Použitá paměť RAM: "$usedram" MB" >> dohled
-echo "Volná paměť RAM: "$freeram" MB" >> dohled
+echo "<div class="obal">" >> html/index.html
+echo "-------------------------------------" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Aktuální čas: "$cas >> html/index.html
+echo "<br>" >> html/index.html
+echo "Moje IP: "$ip >> html/index.html
+echo "<br>" >> html/index.html
+echo "_____________________________________" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Přijatá data: "$rx >> html/index.html
+echo "<br>" >> html/index.html
+echo "Odeslaná data: "$tx >> html/index.html
+echo "<br>" >> html/index.html
+echo "_____________________________________" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Počet přihlášených uživatelů: "$users >> html/index.html
+echo "<br>" >> html/index.html
+echo "_____________________________________" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Statistiky disku: " >> html/index.html
+echo "<br>" >> html/index.html
+echo "Celkové místo na disku: "$wholedisk >> html/index.html
+echo "<br>" >> html/index.html
+echo "Využité místo na disku: "$useddisk >> html/index.html
+echo "<br>" >> html/index.html
+echo "Volné místo na disku: "$freedisk >> html/index.html
+echo "<br>" >> html/index.html
+echo "Využité místo na disku v %: "$procentdisk >> html/index.html
+echo "<br>" >> html/index.html
+echo "_____________________________________" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Statistiky paměti RAM: " >> html/index.html
+echo "<br>" >> html/index.html
+echo "Celková paměť RAM: "$wholeram" MB" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Použitá paměť RAM: "$usedram" MB" >> html/index.html
+echo "<br>" >> html/index.html
+echo "Volná paměť RAM: "$freeram" MB" >> html/index.html
+echo "<br>" >> html/index.html
+echo "-------------------------------------" >> html/index.html
+echo "</div>" >> html/index.html
+echo "<br>" >> html/index.html
+echo "<br>" >> html/index.html
 
