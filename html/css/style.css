@@ -1,13 +1,16 @@
 html{
-	background-color: gray;
+	background-color: #00004d;
+	color: white;
 }
-.obal{
+.obsah{
 	width: 960px;
 	margin: 0 auto;
-	border: solid 2px white;
 }
 h1{
 	text-align: center;
 	width: 960px;
 	margin: 0 auto;
+}
+.obal{
+	border: 2px solid white;
 }
